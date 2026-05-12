@@ -42,7 +42,7 @@ docker compose up -d
 
 ## Why MemoraEU?
 
-| | MemoraEU | 0thers |
+| | MemoraEU | 0thers (like mem0:)|
 |---|---|---|
 | Open source | ✅ AGPL v3 | ✅ (core) |
 | Hosted in EU | ✅ OVH France | ❌ US |
@@ -176,7 +176,7 @@ memoraeu/
 bash deploy.sh ubuntu@memoraeu.com
 
 # SSH
-ssh -p 9631 -i ~/.ssh/id_ed25519 ubuntu@51.83.72.183
+ssh -p 9631 -i ~/.ssh/id_ed25519 ubuntu@yourip
 ```
 
 | Composant | URL |
