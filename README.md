@@ -176,7 +176,7 @@ memoraeu/
 bash deploy.sh ubuntu@memoraeu.com
 
 # SSH
-ssh -p 9631 -i ~/.ssh/id_ed25519 ubuntu@yourip
+ssh -p 22 -i ~/.ssh/id_id ubuntu@yourip
 ```
 
 | Composant | URL |
