@@ -1,4 +1,4 @@
-# MemoraEU
+# MemoraEU Server
 
 [![PyPI memoraeu-mcp](https://img.shields.io/pypi/v/memoraeu-mcp?label=memoraeu-mcp&color=1D9E75)](https://pypi.org/project/memoraeu-mcp/)
 [![PyPI memoraeu](https://img.shields.io/pypi/v/memoraeu?label=sdk&color=1D9E75)](https://pypi.org/project/memoraeu/)
@@ -20,6 +20,17 @@
 > Compatible Claude, Cursor, Windsurf, ChatGPT via MCP.
 > Auto-hébergement gratuit (AGPL v3) ou [cloud géré EU](https://memoraeu.com).
 
+### Ce que ça fait
+
+MemoraEU est un serveur de mémoire auto-hébergeable pour les assistants IA. Il implémente le [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) pour que n'importe quel client MCP (Claude, Cursor, Windsurf, ChatGPT…) puisse stocker et retrouver des souvenirs via recherche sémantique.
+
+- **Recherche sémantique** propulsée par Qdrant + embeddings (Ollama ou Mistral)
+- **Multi-utilisateur / multi-org** avec auth JWT
+- **Transports MCP** : Legacy SSE (Cursor, curl) + HTTP Streamable (claude.ai 2025)
+- **Faits temporels** avec périodes de validité
+- **Chiffrement zero-knowledge** AES-256-GCM côté client (memoraeu-mcp)
+- **RGPD natif** : endpoints export / suppression / historique intégrés
+
 ### Démarrage rapide
 
 #### ☁️ Option A — Cloud géré (zéro config)
@@ -36,13 +47,46 @@ uvx memoraeu-mcp
 #### 🏠 Option B — Auto-hébergement (gratuit, AGPL v3)
 
 ```bash
-git clone https://github.com/pquattro/memoraEu
-cd memoraEu
+git clone https://github.com/pquattro/memoraeu-server
+cd memoraeu-server
 cp .env.example .env   # remplir MEMORAEU_SECRET, MEMORAEU_SALT, MISTRAL_API_KEY
 docker compose up -d
 # API disponible sur http://localhost:8000
+# Docs : http://localhost:8000/docs
 # Serveur MCP : http://localhost:8000/mcp/sse
 ```
+
+### Configuration
+
+Toute la configuration se fait via variables d'environnement (voir `.env.example`) :
+
+| Variable | Défaut | Description |
+|----------|--------|-------------|
+| `JWT_SECRET` | — | **Requis.** 32 caractères minimum. |
+| `REGISTRATION_OPEN` | `true` | Autoriser les nouvelles inscriptions |
+| `EMBED_PROVIDER` | `ollama` | `ollama` ou `mistral` |
+| `EMBED_MODEL` | `nomic-embed-text` | Nom du modèle d'embedding |
+| `EMBED_URL` | `http://localhost:11434` | URL de base Ollama |
+| `MISTRAL_API_KEY` | — | Requis si `EMBED_PROVIDER=mistral` |
+| `QDRANT_URL` | `http://qdrant:6333` | URL de l'instance Qdrant |
+| `SQLITE_PATH` | `/data/memoraeu.db` | Chemin de la base SQLite |
+
+### Connecter votre client MCP
+
+**Claude Desktop / Cursor / Windsurf** (Legacy SSE) :
+```json
+{
+  "mcpServers": {
+    "memoraeu": {
+      "url": "http://localhost:8000/mcp/sse",
+      "headers": { "Authorization": "Bearer VOTRE_CLE_API" }
+    }
+  }
+}
+```
+
+**claude.ai** (HTTP Streamable, nécessite une URL publique + OAuth) :
+Voir la [documentation](https://memoraeu.com/docs/mcp).
 
 ### Pourquoi MemoraEU ?
 
@@ -56,6 +100,16 @@ docker compose up -d
 | OAuth 2.0 PKCE | ✅ | ❌ |
 | Graphe de connaissance temporel | ✅ | ❌ |
 | Endpoints RGPD | ✅ natifs | ⚠️ partiel |
+
+### Self-host vs Cloud
+
+| | Auto-hébergé | [MemoraEU Cloud](https://memoraeu.com) |
+|---|---|---|
+| Installation | Docker Compose | Inscription, c'est tout |
+| Localisation des données | Votre serveur | EU (OVH, France) |
+| Embeddings | Ollama (local) ou Mistral | Mistral |
+| Mises à jour | Manuelles | Automatiques |
+| Prix | Gratuit (AGPL) | Tier gratuit + plans payants |
 
 ### Architecture
 
@@ -103,6 +157,17 @@ remember() :
     → POST /memories { blob chiffré, vecteur }  ← le serveur ne voit que l'opaque
 ```
 
+### Installer en package Python
+
+```bash
+pip install memoraeu
+```
+
+Avec les embeddings Mistral :
+```bash
+pip install "memoraeu[mistral]"
+```
+
 ### Conformité RGPD
 
 | Endpoint | Méthode | Description |
@@ -122,8 +187,19 @@ X-Admin-Key: <MEMORAEU_ADMIN_KEY>
 
 MemoraEU est open source (AGPL v3). Les contributions sont les bienvenues.
 
-- 🐛 [Ouvrir une issue](https://github.com/pquattro/memoraEu/issues)
-- 💬 [Démarrer une discussion](https://github.com/pquattro/memoraEu/discussions)
+```bash
+git clone https://github.com/pquattro/memoraeu-server
+cd memoraeu-server
+python -m venv .venv && source .venv/bin/activate
+pip install -e .
+cp .env.example .env  # configurer votre .env local
+uvicorn api.main:app --reload
+```
+
+Gardez les PRs ciblées — une fonctionnalité ou un correctif par PR.
+
+- 🐛 [Ouvrir une issue](https://github.com/pquattro/memoraeu-server/issues)
+- 💬 [Démarrer une discussion](https://github.com/pquattro/memoraeu-server/discussions)
 - 📖 [Docs API](https://api.memoraeu.com/docs)
 - ☁️ [Essayer le cloud](https://app.memoraeu.com)
 
@@ -133,6 +209,8 @@ Domaines où l'aide est la plus utile : SDK JavaScript/TypeScript, app mobile, i
 
 [AGPL v3](LICENSE) — Copyright (c) 2026 Philippe Quattrocchi
 
+Si vous faites tourner une version modifiée en tant que service réseau, vous devez rendre le code source disponible à vos utilisateurs.
+
 ---
 
 ## English
@@ -141,6 +219,17 @@ Domaines où l'aide est la plus utile : SDK JavaScript/TypeScript, app mobile, i
 > sovereign, zero-knowledge, hosted in Europe.
 > Works with Claude, Cursor, Windsurf, ChatGPT via MCP.
 > Self-host for free (AGPL v3) or use the [managed EU cloud](https://memoraeu.com).
+
+### What it does
+
+MemoraEU is a self-hostable memory server for AI assistants. It implements the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) so any MCP-compatible client (Claude, Cursor, Windsurf, ChatGPT…) can store and retrieve memories via semantic search.
+
+- **Semantic search** powered by Qdrant + embeddings (Ollama or Mistral)
+- **Multi-user / multi-org** with JWT auth
+- **MCP transports**: Legacy SSE (Cursor, curl) + HTTP Streamable (claude.ai 2025)
+- **Temporal facts** with validity periods
+- **Zero-knowledge encryption** AES-256-GCM client-side (memoraeu-mcp)
+- **Native GDPR**: built-in export / deletion / history endpoints
 
 ### Quick start
 
@@ -158,13 +247,46 @@ uvx memoraeu-mcp
 #### 🏠 Option B — Self-host (free, AGPL v3)
 
 ```bash
-git clone https://github.com/pquattro/memoraEu
-cd memoraEu
+git clone https://github.com/pquattro/memoraeu-server
+cd memoraeu-server
 cp .env.example .env   # fill MEMORAEU_SECRET, MEMORAEU_SALT, MISTRAL_API_KEY
 docker compose up -d
 # API running at http://localhost:8000
+# Docs: http://localhost:8000/docs
 # MCP server: http://localhost:8000/mcp/sse
 ```
+
+### Configuration
+
+All configuration is via environment variables (see `.env.example`):
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `JWT_SECRET` | — | **Required.** Min 32 chars. |
+| `REGISTRATION_OPEN` | `true` | Allow new user registration |
+| `EMBED_PROVIDER` | `ollama` | `ollama` or `mistral` |
+| `EMBED_MODEL` | `nomic-embed-text` | Embedding model name |
+| `EMBED_URL` | `http://localhost:11434` | Ollama base URL |
+| `MISTRAL_API_KEY` | — | Required if `EMBED_PROVIDER=mistral` |
+| `QDRANT_URL` | `http://qdrant:6333` | Qdrant instance URL |
+| `SQLITE_PATH` | `/data/memoraeu.db` | SQLite database path |
+
+### Connect your MCP client
+
+**Claude Desktop / Cursor / Windsurf** (Legacy SSE):
+```json
+{
+  "mcpServers": {
+    "memoraeu": {
+      "url": "http://localhost:8000/mcp/sse",
+      "headers": { "Authorization": "Bearer YOUR_API_KEY" }
+    }
+  }
+}
+```
+
+**claude.ai** (HTTP Streamable, requires public URL + OAuth):
+See [documentation](https://memoraeu.com/docs/mcp).
 
 ### Why MemoraEU?
 
@@ -178,6 +300,16 @@ docker compose up -d
 | OAuth 2.0 PKCE | ✅ | ❌ |
 | Temporal knowledge graph | ✅ | ❌ |
 | GDPR endpoints | ✅ native | ⚠️ partial |
+
+### Self-host vs Cloud
+
+| | Self-hosted | [MemoraEU Cloud](https://memoraeu.com) |
+|---|---|---|
+| Setup | Docker Compose | Sign up, done |
+| Data location | Your server | EU (OVH, France) |
+| Embeddings | Ollama (local) or Mistral | Mistral |
+| Updates | Manual | Automatic |
+| Price | Free (AGPL) | Free tier + paid plans |
 
 ### Architecture
 
@@ -225,6 +357,17 @@ remember() :
     → POST /memories { ciphertext, vector }  ← server only sees opaque blobs
 ```
 
+### Install as Python package
+
+```bash
+pip install memoraeu
+```
+
+With Mistral embeddings:
+```bash
+pip install "memoraeu[mistral]"
+```
+
 ### GDPR compliance
 
 | Endpoint | Method | Description |
@@ -244,8 +387,19 @@ X-Admin-Key: <MEMORAEU_ADMIN_KEY>
 
 MemoraEU is open source (AGPL v3). Contributions welcome.
 
-- 🐛 [Open an issue](https://github.com/pquattro/memoraEu/issues)
-- 💬 [Start a discussion](https://github.com/pquattro/memoraEu/discussions)
+```bash
+git clone https://github.com/pquattro/memoraeu-server
+cd memoraeu-server
+python -m venv .venv && source .venv/bin/activate
+pip install -e .
+cp .env.example .env  # configure your local .env
+uvicorn api.main:app --reload
+```
+
+Please keep PRs focused — one feature or fix per PR.
+
+- 🐛 [Open an issue](https://github.com/pquattro/memoraeu-server/issues)
+- 💬 [Start a discussion](https://github.com/pquattro/memoraeu-server/discussions)
 - 📖 [Read the API docs](https://api.memoraeu.com/docs)
 - ☁️ [Try the managed cloud](https://app.memoraeu.com)
 
@@ -253,4 +407,6 @@ Areas where help is most welcome: JavaScript/TypeScript SDK, mobile app, additio
 
 ### License
 
-[AGPL v3](LICENSE) — Copyright (c) 2026 Philippe Quattrocchi
+[AGPL-3.0](LICENSE) — Copyright (C) 2026 Philippe Quattrocchi
+
+If you run a modified version as a network service, you must make the source available to your users.
