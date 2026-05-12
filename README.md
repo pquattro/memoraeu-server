@@ -243,10 +243,6 @@ ssh -p 22 -i ~/.ssh/id_id ubuntu@yourip
 - [x] Doc publique refonte complète avec infographie + tabs par client
 - [x] ChatGPT connector (Advanced Developer Mode) — tools `search` + `fetch` pour Deep Research mode
 
-### Phase 7 — Monétisation (en cours)
-- [ ] Billing Stripe (table `subscriptions`, webhook, sync plans)
-- [ ] Merge intelligent de mémoires dupliquées
-- [ ] Application mobile
 
 ---
 
