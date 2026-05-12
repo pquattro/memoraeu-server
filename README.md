@@ -42,7 +42,7 @@ docker compose up -d
 
 ## Why MemoraEU?
 
-| | MemoraEU | Mem0 |
+| | MemoraEU | 0thers |
 |---|---|---|
 | Open source | ✅ AGPL v3 | ✅ (core) |
 | Hosted in EU | ✅ OVH France | ❌ US |
