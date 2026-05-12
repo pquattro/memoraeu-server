@@ -1,0 +1,46 @@
+name: memoraeu-server
+displayName: MemoraEU — Sovereign MCP Memory
+description: >
+  Self-hostable memory server for AI assistants. Store, search and retrieve
+  memories via semantic search (Qdrant + embeddings). GDPR-friendly — runs
+  entirely in your infrastructure.
+homepage: https://memoraeu.com
+repository: https://github.com/pquattro/memoraeu-server
+license: AGPL-3.0
+categories:
+  - memory
+  - productivity
+  - privacy
+tags:
+  - memory
+  - mcp
+  - qdrant
+  - fastapi
+  - sovereign
+  - europe
+  - gdpr
+  - self-hosted
+
+startCommand:
+  type: http
+  configSchema:
+    type: object
+    required:
+      - url
+      - apiKey
+    properties:
+      url:
+        type: string
+        title: Server URL
+        description: Base URL of your MemoraEU instance (e.g. https://api.memoraeu.com)
+        default: https://api.memoraeu.com
+      apiKey:
+        type: string
+        title: API Key
+        description: Your MemoraEU API key (generate one in the dashboard)
+        format: password
+  commandFunction: |-
+    (config) => ({
+      "url": config.url + "/mcp/sse",
+      "headers": { "Authorization": "Bearer " + config.apiKey }
+    })
