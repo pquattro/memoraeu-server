@@ -30,6 +30,7 @@ MemoraEU est un serveur de mémoire auto-hébergeable pour les assistants IA. Il
 - **Faits temporels** avec périodes de validité
 - **Chiffrement zero-knowledge** AES-256-GCM côté client (memoraeu-mcp)
 - **RGPD natif** : endpoints export / suppression / historique intégrés
+- **Fusion intelligente** : détection et merge de mémoires similaires via LLM (Mistral/Ollama)
 
 ### Démarrage rapide
 
@@ -230,6 +231,7 @@ MemoraEU is a self-hostable memory server for AI assistants. It implements the [
 - **Temporal facts** with validity periods
 - **Zero-knowledge encryption** AES-256-GCM client-side (memoraeu-mcp)
 - **Native GDPR**: built-in export / deletion / history endpoints
+- **Intelligent merge**: similar memory detection and LLM-powered merge (Mistral/Ollama)
 
 ### Quick start
 
