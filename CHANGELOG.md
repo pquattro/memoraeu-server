@@ -9,6 +9,15 @@
 Toutes les modifications notables sont documentées ici.
 Format : [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/) — [Semantic Versioning](https://semver.org/)
 
+### [1.1.0] — 2026-05-12
+
+#### Ajouté
+- **Fusion intelligente de doublons** (`POST /memories/merge`) : reçoit deux contenus déchiffrés, appelle Mistral (Ollama en fallback) pour les fusionner en préservant tous les faits sans redondance
+- **Dashboard — bouton "Fusionner"** : sur chaque paire, fusionne, re-chiffre et supprime les deux originales
+- **Dashboard — bouton "Tout fusionner"** : traite toutes les paires séquentiellement avec skip des IDs déjà traités
+
+---
+
 ### [1.0.0] — 2026-05-12
 
 #### Sécurité (revue complète)
@@ -113,6 +122,15 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/) — [Semantic 
 
 All notable changes are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) — [Semantic Versioning](https://semver.org/)
+
+### [1.1.0] — 2026-05-12
+
+#### Added
+- **Intelligent duplicate merge** (`POST /memories/merge`): receives two decrypted contents, calls Mistral (Ollama fallback) to merge them while preserving all facts without redundancy
+- **Dashboard — "Merge" button**: on each pair, merges, re-encrypts and deletes both originals
+- **Dashboard — "Merge all" button**: processes all pairs sequentially, skipping already-processed IDs
+
+---
 
 ### [1.0.0] — 2026-05-12
 
