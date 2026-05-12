@@ -1,0 +1,19 @@
+{
+  "name": "memoraeu-server",
+  "owner": {
+    "name": "MemoraEU",
+    "email": "contact@memoraeu.com",
+    "url": "https://memoraeu.com"
+  },
+  "plugins": [
+    {
+      "name": "memoraeu-server",
+      "source": {
+        "source": "github",
+        "repo": "pquattro/memoraeu-server"
+      },
+      "description": "Sovereign European MCP memory layer — self-hostable, semantic search, GDPR-friendly.",
+      "version": "0.8.0"
+    }
+  ]
+}
