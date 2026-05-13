@@ -89,6 +89,15 @@ Toute la configuration se fait via variables d'environnement (voir `.env.example
 **claude.ai** (HTTP Streamable, nécessite une URL publique + OAuth) :
 Voir la [documentation](https://memoraeu.com/docs/mcp).
 
+**Mistral AI** (connecteurs beta — La Plateforme) :
+```python
+connector = client.beta.connectors.create(
+    name="memoraeu",
+    server="https://api.memoraeu.com/mcp/sse?token=meu-sk-••••",
+)
+```
+⚠️ Beta — discovery et SSE testés, exécution des tools en cours de déploiement par Mistral.
+
 ### Pourquoi MemoraEU ?
 
 | | MemoraEU | Autres (ex: mem0) |
@@ -98,6 +107,7 @@ Voir la [documentation](https://memoraeu.com/docs/mcp).
 | Zero-knowledge | ✅ AES-256-GCM côté client | ❌ |
 | Auto-hébergeable | ✅ Docker Compose | ✅ |
 | MCP natif | ✅ stdio + SSE + HTTP Streamable | ❌ |
+| Mistral connecteurs | ✅ compatible (beta) | ❌ |
 | OAuth 2.0 PKCE | ✅ | ❌ |
 | Graphe de connaissance temporel | ✅ | ❌ |
 | Endpoints RGPD | ✅ natifs | ⚠️ partiel |
@@ -290,6 +300,15 @@ All configuration is via environment variables (see `.env.example`):
 **claude.ai** (HTTP Streamable, requires public URL + OAuth):
 See [documentation](https://memoraeu.com/docs/mcp).
 
+**Mistral AI** (beta connectors — La Plateforme):
+```python
+connector = client.beta.connectors.create(
+    name="memoraeu",
+    server="https://api.memoraeu.com/mcp/sse?token=meu-sk-••••",
+)
+```
+⚠️ Beta — discovery and SSE tested, tool execution being rolled out by Mistral.
+
 ### Why MemoraEU?
 
 | | MemoraEU | Others (e.g. mem0) |
@@ -299,6 +318,7 @@ See [documentation](https://memoraeu.com/docs/mcp).
 | Zero-knowledge | ✅ AES-256-GCM client-side | ❌ |
 | Self-hostable | ✅ Docker Compose | ✅ |
 | MCP native | ✅ stdio + SSE + HTTP Streamable | ❌ |
+| Mistral connectors | ✅ compatible (beta) | ❌ |
 | OAuth 2.0 PKCE | ✅ | ❌ |
 | Temporal knowledge graph | ✅ | ❌ |
 | GDPR endpoints | ✅ native | ⚠️ partial |
