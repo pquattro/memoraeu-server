@@ -9,6 +9,16 @@
 Toutes les modifications notables sont documentées ici.
 Format : [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/) — [Semantic Versioning](https://semver.org/)
 
+### [1.2.0] — 2026-05-13
+
+#### Ajouté
+- **Compatibilité Mistral connecteurs MCP (beta)** : endpoint `/.well-known/mcp/server-card/{path}` requis par Mistral lors de la découverte
+- Connecteur enregistré et testé : discovery 10 tools ✅, auth `?token=` ✅, server-card ✅
+- Doc : onglet Mistral dans la page MCP avec config Python SDK et note beta
+- ⚠️ Exécution des tool calls en attente du déploiement complet côté Mistral
+
+---
+
 ### [1.1.0] — 2026-05-12
 
 #### Ajouté
@@ -122,6 +132,16 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/) — [Semantic 
 
 All notable changes are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) — [Semantic Versioning](https://semver.org/)
+
+### [1.2.0] — 2026-05-13
+
+#### Added
+- **Mistral MCP connector compatibility (beta)**: `/.well-known/mcp/server-card/{path}` endpoint required by Mistral during connector discovery
+- Connector registered and tested: 10-tool discovery ✅, `?token=` auth ✅, server-card ✅
+- Docs: Mistral tab in MCP page with Python SDK config and beta note
+- ⚠️ Tool call execution pending full rollout on Mistral's side
+
+---
 
 ### [1.1.0] — 2026-05-12
 
