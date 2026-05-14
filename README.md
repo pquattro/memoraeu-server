@@ -18,16 +18,16 @@
 
 > **MemoraEU** donne à votre IA une mémoire persistante et chiffrée —
 > souveraine, zero-knowledge, hébergée en Europe.
-> Compatible Claude, Cursor, Windsurf, ChatGPT via MCP.
+> Compatible Claude, Cursor, Windsurf, ChatGPT, GitHub Copilot, n8n via MCP.
 > Auto-hébergement gratuit (AGPL v3) ou [cloud géré EU](https://memoraeu.com)
 
 ### Ce que ça fait
 
-MemoraEU est un serveur de mémoire auto-hébergeable pour les assistants IA. Il implémente le [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) pour que n'importe quel client MCP (Claude, Cursor, Windsurf, ChatGPT…)
+MemoraEU est un serveur de mémoire auto-hébergeable pour les assistants IA. Il implémente le [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) pour que n'importe quel client MCP (Claude, Cursor, Windsurf, ChatGPT, GitHub Copilot, n8n…)
 
 - **Recherche sémantique** propulsée par Qdrant + embeddings (Ollama ou Mistral)
 - **Multi-utilisateur / multi-org** avec auth JWT
-- **Transports MCP** : Legacy SSE (Cursor, curl) + HTTP Streamable (claude.ai 2025)
+- **Transports MCP** : Legacy SSE (Cursor, curl) + HTTP Streamable (claude.ai, Copilot, n8n)
 - **Faits temporels** avec périodes de validité
 - **Chiffrement zero-knowledge** AES-256-GCM côté client (memoraeu-mcp)
 - **RGPD natif** : endpoints export / suppression / historique intégrés
@@ -262,17 +262,17 @@ Si vous faites tourner une version modifiée en tant que service réseau, vous d
 
 > **MemoraEU** gives your AI a persistent, encrypted memory —
 > sovereign, zero-knowledge, hosted in Europe.
-> Works with Claude, Cursor, Windsurf, ChatGPT via MCP.
+> Works with Claude, Cursor, Windsurf, ChatGPT, GitHub Copilot, n8n via MCP.
 > Self-host for free (AGPL v3) or use the [managed EU cloud](https://memoraeu.com)
 
 ### What it does
 
-MemoraEU is a self-hostable memory server for AI assistants. It implements the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) so any MCP-compatible client (Claude, Cursor, Windsurf, ChatGPT…)
+MemoraEU is a self-hostable memory server for AI assistants. It implements the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) so any MCP-compatible client (Claude, Cursor, Windsurf, ChatGPT, GitHub Copilot, n8n…)
 [![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 
 - **Semantic search** powered by Qdrant + embeddings (Ollama or Mistral)
 - **Multi-user / multi-org** with JWT auth
-- **MCP transports**: Legacy SSE (Cursor, curl) + HTTP Streamable (claude.ai 2025)
+- **MCP transports**: Legacy SSE (Cursor, curl) + HTTP Streamable (claude.ai, Copilot, n8n)
 - **Temporal facts** with validity periods
 - **Zero-knowledge encryption** AES-256-GCM client-side (memoraeu-mcp)
 - **Native GDPR**: built-in export / deletion / history endpoints
