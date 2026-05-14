@@ -1,15 +1,22 @@
 # MemoraEU Server
 
 [![PyPI memoraeu-mcp](https://img.shields.io/pypi/v/memoraeu-mcp?label=memoraeu-mcp&color=1D9E75)](https://pypi.org/project/memoraeu-mcp/)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 [![PyPI memoraeu](https://img.shields.io/pypi/v/memoraeu?label=sdk&color=1D9E75)](https://pypi.org/project/memoraeu/)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 [![MCP compatible](https://img.shields.io/badge/MCP-compatible-purple.svg)](https://modelcontextprotocol.io/)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 [![Hosted in EU](https://img.shields.io/badge/hosted-EU%20🇪🇺-003399.svg)](https://memoraeu.com)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 
 ---
 
 🇫🇷 [Français](#français) · 🇬🇧 [English](#english)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 
 ---
 
@@ -18,23 +25,30 @@
 > **MemoraEU** donne à votre IA une mémoire persistante et chiffrée —
 > souveraine, zero-knowledge, hébergée en Europe.
 > Compatible Claude, Cursor, Windsurf, ChatGPT via MCP.
-> Auto-hébergement gratuit (AGPL v3) ou [cloud géré EU](https://memoraeu.com).
+> Auto-hébergement gratuit (AGPL v3) ou [cloud géré EU](https://memoraeu.com)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu).
 
 ### Ce que ça fait
 
-MemoraEU est un serveur de mémoire auto-hébergeable pour les assistants IA. Il implémente le [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) pour que n'importe quel client MCP (Claude, Cursor, Windsurf, ChatGPT…) puisse stocker et retrouver des souvenirs via recherche sémantique.
+MemoraEU est un serveur de mémoire auto-hébergeable pour les assistants IA. Il implémente le [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) pour que n'importe quel client MCP (Claude, Cursor, Windsurf, ChatGPT…)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) puisse stocker et retrouver des souvenirs via recherche sémantique.
 
 - **Recherche sémantique** propulsée par Qdrant + embeddings (Ollama ou Mistral)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 - **Multi-utilisateur / multi-org** avec auth JWT
 - **Transports MCP** : Legacy SSE (Cursor, curl) + HTTP Streamable (claude.ai 2025)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 - **Faits temporels** avec périodes de validité
 - **Chiffrement zero-knowledge** AES-256-GCM côté client (memoraeu-mcp)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 - **RGPD natif** : endpoints export / suppression / historique intégrés
 - **Fusion intelligente** : détection et merge de mémoires similaires via LLM (Mistral/Ollama)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 
 ### Démarrage rapide
 
 #### ☁️ Option A — Cloud géré (zéro config)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 
 ```bash
 # Installer le client MCP
@@ -46,6 +60,7 @@ uvx memoraeu-mcp
 ```
 
 #### 🏠 Option B — Auto-hébergement (gratuit, AGPL v3)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 
 ```bash
 git clone https://github.com/pquattro/memoraeu-server
@@ -59,7 +74,8 @@ docker compose up -d
 
 ### Configuration
 
-Toute la configuration se fait via variables d'environnement (voir `.env.example`) :
+Toute la configuration se fait via variables d'environnement (voir `.env.example`)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) :
 
 | Variable | Défaut | Description |
 |----------|--------|-------------|
@@ -74,7 +90,8 @@ Toute la configuration se fait via variables d'environnement (voir `.env.example
 
 ### Connecter votre client MCP
 
-**Claude Desktop / Cursor / Windsurf** (Legacy SSE) :
+**Claude Desktop / Cursor / Windsurf** (Legacy SSE)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) :
 ```json
 {
   "mcpServers": {
@@ -86,10 +103,13 @@ Toute la configuration se fait via variables d'environnement (voir `.env.example
 }
 ```
 
-**claude.ai** (HTTP Streamable, nécessite une URL publique + OAuth) :
-Voir la [documentation](https://memoraeu.com/docs/mcp).
+**claude.ai** (HTTP Streamable, nécessite une URL publique + OAuth)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) :
+Voir la [documentation](https://memoraeu.com/docs/mcp)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu).
 
-**Mistral AI** (connecteurs beta — La Plateforme) :
+**Mistral AI** (connecteurs beta — La Plateforme)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) :
 ```python
 connector = client.beta.connectors.create(
     name="memoraeu",
@@ -100,55 +120,73 @@ connector = client.beta.connectors.create(
 
 ### Pourquoi MemoraEU ?
 
-| | MemoraEU | Autres (ex: mem0) |
+| | MemoraEU | Autres (ex: mem0)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) |
 |---|---|---|
-| Open source | ✅ AGPL v3 | ✅ (core) |
+| Open source | ✅ AGPL v3 | ✅ (core)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) |
 | Hébergé en EU | ✅ OVH France | ❌ US |
 | Zero-knowledge | ✅ AES-256-GCM côté client | ❌ |
 | Auto-hébergeable | ✅ Docker Compose | ✅ |
 | MCP natif | ✅ stdio + SSE + HTTP Streamable | ❌ |
-| Mistral connecteurs | ✅ compatible (beta) | ❌ |
+| Mistral connecteurs | ✅ compatible (beta)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) | ❌ |
 | OAuth 2.0 PKCE | ✅ | ❌ |
 | Graphe de connaissance temporel | ✅ | ❌ |
 | Endpoints RGPD | ✅ natifs | ⚠️ partiel |
 
 ### Self-host vs Cloud
 
-| | Auto-hébergé | [MemoraEU Cloud](https://memoraeu.com) |
+| | Auto-hébergé | [MemoraEU Cloud](https://memoraeu.com)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) |
 |---|---|---|
 | Installation | Docker Compose | Inscription, c'est tout |
-| Localisation des données | Votre serveur | EU (OVH, France) |
-| Embeddings | Ollama (local) ou Mistral | Mistral |
+| Localisation des données | Votre serveur | EU (OVH, France)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) |
+| Embeddings | Ollama (local)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) ou Mistral | Mistral |
 | Mises à jour | Manuelles | Automatiques |
-| Prix | Gratuit (AGPL) | Tier gratuit + plans payants |
+| Prix | Gratuit (AGPL)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) | Tier gratuit + plans payants |
 
 ### Architecture
 
 ```
 Claude Desktop / Claude Code                 claude.ai · Cursor · Windsurf · ChatGPT
          │                                              │
-         │ stdio (MCP)  memoraeu-mcp (uvx)             │ HTTP Streamable / SSE
+         │ stdio (MCP)  memoraeu-mcp (uvx)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)             │ HTTP Streamable / SSE
          ▼                                              │ OAuth 2.0 PKCE
   memoraeu_mcp/main.py                                 │
          │                                              ▼
          ├── Mistral API  ←── embeddings locaux   api/main.py  (FastAPI)
-         │                    (avant chiffrement)       │
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
+         │                    (avant chiffrement)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)       │
          │ HTTP + Bearer token                          ├── POST /mcp/sse   ← HTTP Streamable
          │ [contenu chiffré AES-256-GCM + vecteur]     ├── GET  /mcp/sse   ← SSE legacy
          ▼                                              ├── /oauth/*        ← PKCE
    api/main.py  (FastAPI)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
          ├── Qdrant          ← recherche vectorielle
          ├── SQLite (memories)
-         └── SQLite (facts)  ← graphe de connaissance temporel
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
+         └── SQLite (facts)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)  ← graphe de connaissance temporel
 ```
 
 **Stack :**
-- [FastAPI](https://fastapi.tiangolo.com/) — API REST async
+- [FastAPI](https://fastapi.tiangolo.com/)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) — API REST async
 - [Qdrant](https://qdrant.tech/) — base vectorielle (Docker)
-- [Mistral AI](https://mistral.ai/) — embeddings côté client MCP
-- [MCP](https://modelcontextprotocol.io/) — protocole Claude Desktop / Claude Code
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
+- [Mistral AI](https://mistral.ai/)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) — embeddings côté client MCP
+- [MCP](https://modelcontextprotocol.io/)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) — protocole Claude Desktop / Claude Code
 - SQLite — persistance des métadonnées
-- AES-256-GCM + PBKDF2-SHA256 (210k itérations) — chiffrement zero-knowledge
+- AES-256-GCM + PBKDF2-SHA256 (210k itérations)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) — chiffrement zero-knowledge
 
 ### Flux zero-knowledge
 
@@ -160,11 +198,15 @@ Claude Desktop / Claude Code                 claude.ai · Cursor · Windsurf · 
 | `MISTRAL_API_KEY` | Clé Mistral côté client — embeddings calculés avant chiffrement |
 
 ```
-remember() :
+remember()
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) :
   texte clair
-    → PBKDF2(SECRET, SALT, 210k) = clé AES locale
-    → Mistral embed(texte clair) = vecteur  ← sur la machine de l'utilisateur
-    → AES-256-GCM(texte, clé) = blob chiffré
+    → PBKDF2(SECRET, SALT, 210k)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) = clé AES locale
+    → Mistral embed(texte clair)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) = vecteur  ← sur la machine de l'utilisateur
+    → AES-256-GCM(texte, clé)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) = blob chiffré
     → POST /memories { blob chiffré, vecteur }  ← le serveur ne voit que l'opaque
 ```
 
@@ -184,8 +226,10 @@ pip install "memoraeu[mistral]"
 | Endpoint | Méthode | Description |
 |----------|---------|-------------|
 | `/gdpr/status` | `GET` | Statistiques des données stockées |
-| `/gdpr/export` | `GET` | Export JSON complet (Art. 20) |
-| `/gdpr/delete-account` | `DELETE` | Purge irréversible Qdrant + SQLite (Art. 17) |
+| `/gdpr/export` | `GET` | Export JSON complet (Art. 20)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) |
+| `/gdpr/delete-account` | `DELETE` | Purge irréversible Qdrant + SQLite (Art. 17)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) |
 | `/me/gdpr-history` | `GET` | Historique des opérations RGPD |
 
 Journal admin filtrable par organisation et date :
@@ -202,8 +246,10 @@ X-Admin-Key: <MEMORAEU_ADMIN_KEY>
 Texte en clair
   → [LOCAL] Mistral compresse si > 300 caractères
   → [LOCAL] Mistral génère un vecteur d'embedding
-  → [LOCAL] PBKDF2(SECRET, SALT, 210k itérations) → clé AES
-  → [LOCAL] AES-256-GCM(texte) → blob chiffré
+  → [LOCAL] PBKDF2(SECRET, SALT, 210k itérations)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) → clé AES
+  → [LOCAL] AES-256-GCM(texte)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) → blob chiffré
   → POST /memories { blob chiffré, vecteur }
   → [SERVEUR] similarité vectorielle → skip si > 94% doublon
   → [SERVEUR] SQLite ← métadonnées  |  Qdrant ← vecteur
@@ -214,6 +260,7 @@ Texte en clair
 
 ```
 Requête texte (ex. "projet principal")
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
   → [LOCAL] Mistral génère le vecteur de la requête
   → POST /memories/search { vecteur, limit: 3 }
   → [SERVEUR] Qdrant cosine similarity → top-N blobs chiffrés
@@ -222,6 +269,7 @@ Requête texte (ex. "projet principal")
 ```
 
 #### Mémoire automatique (mode MCP stdio)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 
 Le serveur MCP est conçu pour fonctionner sans intervention manuelle. Les descriptions des outils `recall` et `remember` instruisent Claude de les appeler automatiquement — `recall` au premier message de chaque session, `remember` dès qu'une information mérite d'être retenue. Au premier `recall`, le system prompt complet est injecté dans le contexte.
 
@@ -229,7 +277,8 @@ Le serveur MCP est conçu pour fonctionner sans intervention manuelle. Les descr
 
 ### Contribuer
 
-MemoraEU est open source (AGPL v3). Les contributions sont les bienvenues.
+MemoraEU est open source (AGPL v3)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu). Les contributions sont les bienvenues.
 
 ```bash
 git clone https://github.com/pquattro/memoraeu-server
@@ -243,15 +292,20 @@ uvicorn api.main:app --reload
 Gardez les PRs ciblées — une fonctionnalité ou un correctif par PR.
 
 - 🐛 [Ouvrir une issue](https://github.com/pquattro/memoraeu-server/issues)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 - 💬 [Démarrer une discussion](https://github.com/pquattro/memoraeu-server/discussions)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 - 📖 [Docs API](https://api.memoraeu.com/docs)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 - ☁️ [Essayer le cloud](https://app.memoraeu.com)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 
 Domaines où l'aide est la plus utile : SDK JavaScript/TypeScript, app mobile, intégrations MCP supplémentaires, traductions.
 
 ### Licence
 
-[AGPL v3](LICENSE) — Copyright (c) 2026 Philippe Quattrocchi
+[AGPL v3](LICENSE) — Copyright (c)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) 2026 Philippe Quattrocchi
 
 Si vous faites tourner une version modifiée en tant que service réseau, vous devez rendre le code source disponible à vos utilisateurs.
 
@@ -262,23 +316,30 @@ Si vous faites tourner une version modifiée en tant que service réseau, vous d
 > **MemoraEU** gives your AI a persistent, encrypted memory —
 > sovereign, zero-knowledge, hosted in Europe.
 > Works with Claude, Cursor, Windsurf, ChatGPT via MCP.
-> Self-host for free (AGPL v3) or use the [managed EU cloud](https://memoraeu.com).
+> Self-host for free (AGPL v3) or use the [managed EU cloud](https://memoraeu.com)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu).
 
 ### What it does
 
-MemoraEU is a self-hostable memory server for AI assistants. It implements the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) so any MCP-compatible client (Claude, Cursor, Windsurf, ChatGPT…) can store and retrieve memories via semantic search.
+MemoraEU is a self-hostable memory server for AI assistants. It implements the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) so any MCP-compatible client (Claude, Cursor, Windsurf, ChatGPT…)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) can store and retrieve memories via semantic search.
 
 - **Semantic search** powered by Qdrant + embeddings (Ollama or Mistral)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 - **Multi-user / multi-org** with JWT auth
 - **MCP transports**: Legacy SSE (Cursor, curl) + HTTP Streamable (claude.ai 2025)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 - **Temporal facts** with validity periods
 - **Zero-knowledge encryption** AES-256-GCM client-side (memoraeu-mcp)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 - **Native GDPR**: built-in export / deletion / history endpoints
 - **Intelligent merge**: similar memory detection and LLM-powered merge (Mistral/Ollama)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 
 ### Quick start
 
 #### ☁️ Option A — Managed cloud (zero config)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 
 ```bash
 # Install the MCP client
@@ -290,6 +351,7 @@ uvx memoraeu-mcp
 ```
 
 #### 🏠 Option B — Self-host (free, AGPL v3)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 
 ```bash
 git clone https://github.com/pquattro/memoraeu-server
@@ -303,7 +365,8 @@ docker compose up -d
 
 ### Configuration
 
-All configuration is via environment variables (see `.env.example`):
+All configuration is via environment variables (see `.env.example`)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu):
 
 | Variable | Default | Description |
 |----------|---------|-------------|
@@ -318,7 +381,8 @@ All configuration is via environment variables (see `.env.example`):
 
 ### Connect your MCP client
 
-**Claude Desktop / Cursor / Windsurf** (Legacy SSE):
+**Claude Desktop / Cursor / Windsurf** (Legacy SSE)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu):
 ```json
 {
   "mcpServers": {
@@ -330,10 +394,13 @@ All configuration is via environment variables (see `.env.example`):
 }
 ```
 
-**claude.ai** (HTTP Streamable, requires public URL + OAuth):
-See [documentation](https://memoraeu.com/docs/mcp).
+**claude.ai** (HTTP Streamable, requires public URL + OAuth)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu):
+See [documentation](https://memoraeu.com/docs/mcp)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu).
 
-**Mistral AI** (beta connectors — La Plateforme):
+**Mistral AI** (beta connectors — La Plateforme)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu):
 ```python
 connector = client.beta.connectors.create(
     name="memoraeu",
@@ -344,55 +411,73 @@ connector = client.beta.connectors.create(
 
 ### Why MemoraEU?
 
-| | MemoraEU | Others (e.g. mem0) |
+| | MemoraEU | Others (e.g. mem0)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) |
 |---|---|---|
-| Open source | ✅ AGPL v3 | ✅ (core) |
+| Open source | ✅ AGPL v3 | ✅ (core)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) |
 | Hosted in EU | ✅ OVH France | ❌ US |
 | Zero-knowledge | ✅ AES-256-GCM client-side | ❌ |
 | Self-hostable | ✅ Docker Compose | ✅ |
 | MCP native | ✅ stdio + SSE + HTTP Streamable | ❌ |
-| Mistral connectors | ✅ compatible (beta) | ❌ |
+| Mistral connectors | ✅ compatible (beta)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) | ❌ |
 | OAuth 2.0 PKCE | ✅ | ❌ |
 | Temporal knowledge graph | ✅ | ❌ |
 | GDPR endpoints | ✅ native | ⚠️ partial |
 
 ### Self-host vs Cloud
 
-| | Self-hosted | [MemoraEU Cloud](https://memoraeu.com) |
+| | Self-hosted | [MemoraEU Cloud](https://memoraeu.com)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) |
 |---|---|---|
 | Setup | Docker Compose | Sign up, done |
-| Data location | Your server | EU (OVH, France) |
-| Embeddings | Ollama (local) or Mistral | Mistral |
+| Data location | Your server | EU (OVH, France)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) |
+| Embeddings | Ollama (local)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) or Mistral | Mistral |
 | Updates | Manual | Automatic |
-| Price | Free (AGPL) | Free tier + paid plans |
+| Price | Free (AGPL)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) | Free tier + paid plans |
 
 ### Architecture
 
 ```
 Claude Desktop / Claude Code                 claude.ai · Cursor · Windsurf · ChatGPT
          │                                              │
-         │ stdio (MCP)  memoraeu-mcp (uvx)             │ HTTP Streamable / SSE
+         │ stdio (MCP)  memoraeu-mcp (uvx)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)             │ HTTP Streamable / SSE
          ▼                                              │ OAuth 2.0 PKCE
   memoraeu_mcp/main.py                                 │
          │                                              ▼
          ├── Mistral API  ←── local embeddings    api/main.py  (FastAPI)
-         │                    (before encryption)       │
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
+         │                    (before encryption)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)       │
          │ HTTP + Bearer token                          ├── POST /mcp/sse   ← HTTP Streamable
          │ [AES-256-GCM ciphertext + vector]           ├── GET  /mcp/sse   ← SSE legacy
          ▼                                              ├── /oauth/*        ← PKCE
    api/main.py  (FastAPI)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
          ├── Qdrant          ← vector search
          ├── SQLite (memories)
-         └── SQLite (facts)  ← temporal knowledge graph
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
+         └── SQLite (facts)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)  ← temporal knowledge graph
 ```
 
 **Stack:**
-- [FastAPI](https://fastapi.tiangolo.com/) — async REST API
+- [FastAPI](https://fastapi.tiangolo.com/)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) — async REST API
 - [Qdrant](https://qdrant.tech/) — vector database (Docker)
-- [Mistral AI](https://mistral.ai/) — client-side embeddings
-- [MCP](https://modelcontextprotocol.io/) — Claude Desktop / Claude Code protocol
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
+- [Mistral AI](https://mistral.ai/)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) — client-side embeddings
+- [MCP](https://modelcontextprotocol.io/)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) — Claude Desktop / Claude Code protocol
 - SQLite — metadata persistence
-- AES-256-GCM + PBKDF2-SHA256 (210k iterations) — zero-knowledge encryption
+- AES-256-GCM + PBKDF2-SHA256 (210k iterations)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) — zero-knowledge encryption
 
 ### Zero-knowledge flow
 
@@ -404,11 +489,15 @@ Claude Desktop / Claude Code                 claude.ai · Cursor · Windsurf · 
 | `MISTRAL_API_KEY` | Client-side Mistral key — embeddings computed before encryption |
 
 ```
-remember() :
+remember()
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) :
   plaintext
-    → PBKDF2(SECRET, SALT, 210k) = local AES key
-    → Mistral embed(plaintext) = vector  ← on the user's machine
-    → AES-256-GCM(plaintext, key) = ciphertext
+    → PBKDF2(SECRET, SALT, 210k)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) = local AES key
+    → Mistral embed(plaintext)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) = vector  ← on the user's machine
+    → AES-256-GCM(plaintext, key)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) = ciphertext
     → POST /memories { ciphertext, vector }  ← server only sees opaque blobs
 ```
 
@@ -428,8 +517,10 @@ pip install "memoraeu[mistral]"
 | Endpoint | Method | Description |
 |----------|--------|-------------|
 | `/gdpr/status` | `GET` | Stored data statistics |
-| `/gdpr/export` | `GET` | Full JSON export (Art. 20) |
-| `/gdpr/delete-account` | `DELETE` | Irreversible purge Qdrant + SQLite (Art. 17) |
+| `/gdpr/export` | `GET` | Full JSON export (Art. 20)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) |
+| `/gdpr/delete-account` | `DELETE` | Irreversible purge Qdrant + SQLite (Art. 17)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) |
 | `/me/gdpr-history` | `GET` | GDPR operation history |
 
 Filterable admin log by organization and date:
@@ -446,8 +537,10 @@ X-Admin-Key: <MEMORAEU_ADMIN_KEY>
 Plaintext
   → [LOCAL] Mistral compresses if > 300 chars
   → [LOCAL] Mistral generates an embedding vector
-  → [LOCAL] PBKDF2(SECRET, SALT, 210k iterations) → AES key
-  → [LOCAL] AES-256-GCM(plaintext) → encrypted blob
+  → [LOCAL] PBKDF2(SECRET, SALT, 210k iterations)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) → AES key
+  → [LOCAL] AES-256-GCM(plaintext)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) → encrypted blob
   → POST /memories { encrypted blob, vector }
   → [SERVER] vector similarity check → skip if > 94% duplicate
   → [SERVER] SQLite ← metadata  |  Qdrant ← vector
@@ -458,6 +551,7 @@ Plaintext
 
 ```
 Text query (e.g. "main project")
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
   → [LOCAL] Mistral generates query embedding
   → POST /memories/search { vector, limit: 3 }
   → [SERVER] Qdrant cosine similarity → top-N encrypted blobs
@@ -466,6 +560,7 @@ Text query (e.g. "main project")
 ```
 
 #### Auto-memory (MCP stdio mode)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 
 The MCP server is designed to work without manual intervention. The `recall` and `remember` tool descriptions instruct Claude to call them automatically — `recall` on the first message of each session, `remember` whenever information is worth retaining. On the first `recall` call, the full behavior system prompt is injected into Claude's context.
 
@@ -473,7 +568,8 @@ The MCP server is designed to work without manual intervention. The `recall` and
 
 ### Contributing
 
-MemoraEU is open source (AGPL v3). Contributions welcome.
+MemoraEU is open source (AGPL v3)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu). Contributions welcome.
 
 ```bash
 git clone https://github.com/pquattro/memoraeu-server
@@ -487,14 +583,19 @@ uvicorn api.main:app --reload
 Please keep PRs focused — one feature or fix per PR.
 
 - 🐛 [Open an issue](https://github.com/pquattro/memoraeu-server/issues)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 - 💬 [Start a discussion](https://github.com/pquattro/memoraeu-server/discussions)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 - 📖 [Read the API docs](https://api.memoraeu.com/docs)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 - ☁️ [Try the managed cloud](https://app.memoraeu.com)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu)
 
 Areas where help is most welcome: JavaScript/TypeScript SDK, mobile app, additional MCP client integrations, translations.
 
 ### License
 
-[AGPL-3.0](LICENSE) — Copyright (C) 2026 Philippe Quattrocchi
+[AGPL-3.0](LICENSE) — Copyright (C)
+[![smithery badge](https://smithery.ai/badge/pquattro-3b11/memoraeu)](https://smithery.ai/servers/pquattro-3b11/memoraeu) 2026 Philippe Quattrocchi
 
 If you run a modified version as a network service, you must make the source available to your users.
