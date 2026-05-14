@@ -194,6 +194,39 @@ GET /gdpr/admin/log?org_id=...&date_from=YYYY-MM-DD
 X-Admin-Key: <MEMORAEU_ADMIN_KEY>
 ```
 
+### Comment ça marche
+
+#### Stocker une mémoire
+
+```
+Texte en clair
+  → [LOCAL] Mistral compresse si > 300 caractères
+  → [LOCAL] Mistral génère un vecteur d'embedding
+  → [LOCAL] PBKDF2(SECRET, SALT, 210k itérations) → clé AES
+  → [LOCAL] AES-256-GCM(texte) → blob chiffré
+  → POST /memories { blob chiffré, vecteur }
+  → [SERVEUR] similarité vectorielle → skip si > 94% doublon
+  → [SERVEUR] SQLite ← métadonnées  |  Qdrant ← vecteur
+  → Le serveur ne voit jamais le texte en clair.
+```
+
+#### Rappeler une mémoire
+
+```
+Requête texte (ex. "projet principal")
+  → [LOCAL] Mistral génère le vecteur de la requête
+  → POST /memories/search { vecteur, limit: 3 }
+  → [SERVEUR] Qdrant cosine similarity → top-N blobs chiffrés
+  → [LOCAL] AES-256-GCM déchiffre → texte en clair
+  → Claude reçoit le contexte. Le serveur n'a vu qu'un vecteur.
+```
+
+#### Mémoire automatique (mode MCP stdio)
+
+Le serveur MCP est conçu pour fonctionner sans intervention manuelle. Les descriptions des outils `recall` et `remember` instruisent Claude de les appeler automatiquement — `recall` au premier message de chaque session, `remember` dès qu'une information mérite d'être retenue. Au premier `recall`, le system prompt complet est injecté dans le contexte.
+
+---
+
 ### Contribuer
 
 MemoraEU est open source (AGPL v3). Les contributions sont les bienvenues.
@@ -404,6 +437,39 @@ Filterable admin log by organization and date:
 GET /gdpr/admin/log?org_id=...&date_from=YYYY-MM-DD
 X-Admin-Key: <MEMORAEU_ADMIN_KEY>
 ```
+
+### How it works
+
+#### Storing a memory
+
+```
+Plaintext
+  → [LOCAL] Mistral compresses if > 300 chars
+  → [LOCAL] Mistral generates an embedding vector
+  → [LOCAL] PBKDF2(SECRET, SALT, 210k iterations) → AES key
+  → [LOCAL] AES-256-GCM(plaintext) → encrypted blob
+  → POST /memories { encrypted blob, vector }
+  → [SERVER] vector similarity check → skip if > 94% duplicate
+  → [SERVER] SQLite ← metadata  |  Qdrant ← vector
+  → Server never sees plaintext. Ever.
+```
+
+#### Recalling a memory
+
+```
+Text query (e.g. "main project")
+  → [LOCAL] Mistral generates query embedding
+  → POST /memories/search { vector, limit: 3 }
+  → [SERVER] Qdrant cosine similarity → top-N encrypted blobs
+  → [LOCAL] AES-256-GCM decrypt → plaintext
+  → Claude receives context. Server only ever saw a vector.
+```
+
+#### Auto-memory (MCP stdio mode)
+
+The MCP server is designed to work without manual intervention. The `recall` and `remember` tool descriptions instruct Claude to call them automatically — `recall` on the first message of each session, `remember` whenever information is worth retaining. On the first `recall` call, the full behavior system prompt is injected into Claude's context.
+
+---
 
 ### Contributing
 
