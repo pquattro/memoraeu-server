@@ -9,6 +9,21 @@
 Toutes les modifications notables sont documentées ici.
 Format : [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/) — [Semantic Versioning](https://semver.org/)
 
+### [1.3.0] — 2026-05-14
+
+#### Ajouté
+- **Smithery Marketplace** — publié `pquattro-3b11/memoraeu`, score 100/100 (Capability Quality 40/40, Server Metadata 35/35, Configuration UX 25/25)
+- **GitHub Copilot (VS Code 1.99+)** — transport HTTP Streamable, API key via `inputs` secret storage VS Code
+- **n8n** — transport HTTP Streamable, node MCP Client Tool, 10 outils disponibles comme sous-outils de workflow
+- Tools renommés en dot-notation (`memory.store`, `memory.recall`, `fact.list`…) — requis par Smithery Naming
+- Doc landing mise à jour — tabs GitHub Copilot + n8n
+
+#### Corrigé
+- Fix body-replay `_replay_receive` : retourne le body une seule fois puis délègue à `request.receive()` — évitait une boucle infinie qui bloquait l'event loop asyncio (tous les endpoints gelaient)
+- Patch `ServerSession._received_request` : auto-transition `Initializing→Initialized` pour les scanners qui envoient `tools/list` avant `initialized`
+
+---
+
 ### [1.2.0] — 2026-05-13
 
 #### Ajouté
@@ -132,6 +147,21 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/) — [Semantic 
 
 All notable changes are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) — [Semantic Versioning](https://semver.org/)
+
+### [1.3.0] — 2026-05-14
+
+#### Added
+- **Smithery Marketplace** — published as `pquattro-3b11/memoraeu`, score 100/100 (Capability Quality 40/40, Server Metadata 35/35, Configuration UX 25/25)
+- **GitHub Copilot (VS Code 1.99+)** — HTTP Streamable transport, API key via VS Code `inputs` secret storage
+- **n8n** — HTTP Streamable transport, MCP Client Tool node, all 10 tools available as workflow sub-tools
+- Tools renamed to dot-notation (`memory.store`, `memory.recall`, `fact.list`…) — required by Smithery Naming score
+- Landing docs updated — GitHub Copilot + n8n tabs added
+
+#### Fixed
+- Body-replay `_replay_receive` fix: returns body once then delegates to `request.receive()` — was causing an infinite loop blocking the asyncio event loop (all endpoints frozen)
+- `ServerSession._received_request` patch: auto-transition `Initializing→Initialized` for scanners that send `tools/list` before `initialized`
+
+---
 
 ### [1.2.0] — 2026-05-13
 
