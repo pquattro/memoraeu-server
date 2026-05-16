@@ -859,13 +859,14 @@ class MetadataStore:
         async with aiosqlite.connect(self.db_path) as db:
             db.row_factory = aiosqlite.Row
             async with db.execute(
-                "SELECT * FROM memories WHERE id = ? AND org_id = ?",
+                "SELECT * FROM memories WHERE id LIKE ? || '%' AND org_id = ? LIMIT 1",
                 (memory_id, org_id)
             ) as cursor:
                 row = await cursor.fetchone()
                 if not row:
                     return None
-            tags = await self._get_tags(db, memory_id)
+            full_id = row["id"]
+            tags = await self._get_tags(db, full_id)
             return self._row_to_memory(row, tags)
 
     async def get_memories_by_ids(self, memory_ids: list[str], org_id: str) -> list[Memory]:

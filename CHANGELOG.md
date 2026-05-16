@@ -9,6 +9,20 @@
 Toutes les modifications notables sont documentées ici.
 Format : [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/) — [Semantic Versioning](https://semver.org/)
 
+### [1.3.1] — 2026-05-16
+
+#### Corrigé
+- **Recall sémantique cassé** : `AsyncQdrantClient.search()` supprimé dans qdrant-client 1.17.x → migré vers `query_points()`
+- **Fetch/Delete par ID partiel** : `get_memory` utilise `LIKE id || '%'` + `delete` résout l'UUID complet avant suppression
+- **UUIDs complets** dans les réponses des tools `remember`, `recall`, `list_memories`, `remember_fact`
+
+#### Fixed
+- **Broken semantic recall**: `AsyncQdrantClient.search()` removed in qdrant-client 1.17.x → migrated to `query_points()`
+- **Fetch/Delete by partial ID**: `get_memory` uses `LIKE id || '%'` + `delete` resolves full UUID before deletion
+- **Full UUIDs** in `remember`, `recall`, `list_memories`, `remember_fact` tool responses
+
+---
+
 ### [1.3.0] — 2026-05-14
 
 #### Ajouté

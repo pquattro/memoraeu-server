@@ -265,7 +265,7 @@ def _build_mcp_server(user: User) -> Server:
                 memory = await svc.create(data, org_id=user.org_id, user_id=user.id)
                 await ms.increment_usage(user.org_id, "memories_created")
                 cat = memory.category or "uncategorized"
-                return [TextContent(type="text", text=f"Stored (ID: {memory.id[:8]}…, category: {cat})")]
+                return [TextContent(type="text", text=f"Stored (ID: {memory.id}, category: {cat})")]
             except Exception as e:
                 return [TextContent(type="text", text=f"Error: {e}")]
 
@@ -289,7 +289,7 @@ def _build_mcp_server(user: User) -> Server:
                 for r in results:
                     m = r.memory
                     cat = m.category or "—"
-                    lines.append(f"• [{round(r.score * 100)}%] {m.content}\n  category: {cat} | ID: {m.id[:8]}…")
+                    lines.append(f"• [{round(r.score * 100)}%] {m.content}\n  category: {cat} | ID: {m.id}")
                 return [TextContent(type="text", text="\n".join(lines))]
             except Exception as e:
                 return [TextContent(type="text", text=f"Error: {e}")]
@@ -312,7 +312,7 @@ def _build_mcp_server(user: User) -> Server:
                 lines = [f"{len(memories)} memory(ies):\n"]
                 for m in memories:
                     preview = m.content[:100] + ("…" if len(m.content) > 100 else "")
-                    lines.append(f"• [{m.category or '—'}] {preview} (ID: {m.id[:8]}…)")
+                    lines.append(f"• [{m.category or '—'}] {preview} (ID: {m.id})")
                 return [TextContent(type="text", text="\n".join(lines))]
             except Exception as e:
                 return [TextContent(type="text", text=f"Error: {e}")]
@@ -342,7 +342,7 @@ def _build_mcp_server(user: User) -> Server:
                     scope=arguments.get("scope", "private"), org_id=user.org_id, user_id=user.id,
                 )
                 fact = await ms.create_fact(data)
-                return [TextContent(type="text", text=f"Fact stored (ID: {fact.id[:8]}…)")]
+                return [TextContent(type="text", text=f"Fact stored (ID: {fact.id})")]
             except Exception as e:
                 return [TextContent(type="text", text=f"Error: {e}")]
 

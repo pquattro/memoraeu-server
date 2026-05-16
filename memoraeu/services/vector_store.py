@@ -118,9 +118,9 @@ class QdrantVectorStore:
                 FieldCondition(key="category", match=MatchValue(value=category))
             )
 
-        results = await self.client.search(
+        response = await self.client.query_points(
             collection_name=self.collection,
-            query_vector=query_vector,
+            query=query_vector,
             query_filter=Filter(must=conditions),
             limit=limit,
             with_payload=True
@@ -134,7 +134,7 @@ class QdrantVectorStore:
                 score=r.score,
                 payload=r.payload
             )
-            for r in results
+            for r in response.points
         ]
 
     async def search_similar_to(
@@ -167,9 +167,9 @@ class QdrantVectorStore:
         if scope == "private":
             conditions.append(FieldCondition(key="user_id", match=MatchValue(value=user_id)))
 
-        results = await self.client.search(
+        response = await self.client.query_points(
             collection_name=self.collection,
-            query_vector=vector,
+            query=vector,
             query_filter=Filter(must=conditions),
             limit=limit + 1,  # +1 pour exclure self
             with_payload=True,
@@ -183,7 +183,7 @@ class QdrantVectorStore:
                 score=r.score,
                 payload=r.payload,
             )
-            for r in results
+            for r in response.points
             if str(r.id) != memory_id   # exclure la mémoire elle-même
         ]
 

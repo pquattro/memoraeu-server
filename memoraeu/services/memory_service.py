@@ -145,11 +145,16 @@ class MemoryService:
         org_id = org_id or settings.default_org_id
         user_id = user_id or settings.default_user_id
 
-        vs = await get_vector_store()
-        await vs.delete(org_id=org_id, user_id=user_id, memory_id=memory_id)
-
+        # Résoudre l'ID partiel → UUID complet
         ms = await get_metadata_store()
-        return await ms.delete_memory(memory_id, org_id, user_id)
+        memory = await ms.get_memory(memory_id, org_id)
+        if not memory:
+            return False
+        full_id = memory.id
+
+        vs = await get_vector_store()
+        await vs.delete(org_id=org_id, user_id=user_id, memory_id=full_id)
+        return await ms.delete_memory(full_id, org_id, user_id)
 
     async def list(
         self,
