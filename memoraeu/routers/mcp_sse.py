@@ -4,7 +4,9 @@ MemoraEU — Transport MCP remote (dual: Legacy SSE + HTTP Streamable)
 Legacy SSE (Cursor, curl)        : GET  /mcp/sse  +  POST /mcp/messages
 HTTP Streamable (claude.ai 2025) : POST /mcp/sse  (avec gestion de session)
 
-Auth : Authorization: Bearer header  OU  ?token= query param.
+Auth :
+  POST /mcp/sse  → Authorization: Bearer uniquement
+  GET  /mcp/sse  → Bearer ou ?token= (EventSource navigateur)
 """
 import asyncio
 import hashlib
@@ -25,30 +27,40 @@ router = APIRouter(tags=["mcp"])
 
 bearer_scheme = HTTPBearer(auto_error=False)
 
-# Legacy SSE transport (Cursor, curl, clients MCP < 2025)
-sse_transport = SseServerTransport("/mcp/messages")
-
 # Sessions HTTP Streamable actives  {session_id → {transport, task, ready_event}}
 _streamable_sessions: dict[str, dict] = {}
 
-# Désactiver DNS rebinding protection — on est derrière nginx TLS, requêtes légitimes d'Anthropic
+# Protection DNS rebinding — valide les en-têtes Host et Origin. Un TLS en
+# amont ne protège pas de cette attaque : elle vient d'un navigateur tiers en
+# cross-origin. Un Origin absent reste accepté (appels serveur-à-serveur).
+# Configurable via MCP_ALLOWED_HOSTS / MCP_ALLOWED_ORIGINS.
 from mcp.server.transport_security import TransportSecuritySettings
-_no_security = TransportSecuritySettings(enable_dns_rebinding_protection=False)
+from memoraeu.config import get_settings as _get_settings
+
+
+def _csv(value: str) -> list[str]:
+    return [item.strip() for item in value.split(",") if item.strip()]
+
+
+_settings = _get_settings()
+_security = TransportSecuritySettings(
+    enable_dns_rebinding_protection=True,
+    allowed_hosts=_csv(_settings.mcp_allowed_hosts),
+    allowed_origins=_csv(_settings.mcp_allowed_origins),
+)
+
+# Legacy SSE transport (Cursor, curl, clients MCP < 2025)
+sse_transport = SseServerTransport("/mcp/messages", security_settings=_security)
 
 
 # ── Auth ───────────────────────────────────────────────────────────────────
 
-async def get_mcp_user(
-    request: Request,
-    token: str | None = Query(default=None),
-    credentials: HTTPAuthorizationCredentials | None = Depends(bearer_scheme),
-) -> User:
-    """Accepte Bearer header OU ?token= query param (EventSource navigateur)."""
-    raw = (credentials.credentials if credentials else None) or token
+async def _resolve_mcp_user(raw: str | None) -> User:
+    """Résout un secret (clé API ou JWT) en User. Commun aux deux transports."""
     if not raw:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Token manquant — passer Authorization: Bearer ou ?token=",
+            detail="Token manquant — passer Authorization: Bearer.",
             headers={"WWW-Authenticate": "Bearer"},
         )
 
@@ -77,6 +89,29 @@ async def get_mcp_user(
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Utilisateur introuvable.")
     return user
+
+
+async def get_mcp_user(
+    credentials: HTTPAuthorizationCredentials | None = Depends(bearer_scheme),
+) -> User:
+    """
+    Auth du transport HTTP Streamable. Header Authorization uniquement : un
+    token en query string finit dans les logs du reverse proxy et le Referer.
+    """
+    return await _resolve_mcp_user(credentials.credentials if credentials else None)
+
+
+async def get_mcp_user_legacy_sse(
+    token: str | None = Query(default=None),
+    credentials: HTTPAuthorizationCredentials | None = Depends(bearer_scheme),
+) -> User:
+    """
+    Auth du transport SSE legacy (GET). Tolère ?token= car EventSource, côté
+    navigateur, ne peut pas poser d'en-tête Authorization.
+    """
+    return await _resolve_mcp_user(
+        (credentials.credentials if credentials else None) or token
+    )
 
 
 # ── MCP Server builder ─────────────────────────────────────────────────────
@@ -364,7 +399,9 @@ def _build_mcp_server(user: User) -> Server:
 
         elif name == "invalidate_fact":
             try:
-                ok = await ms.invalidate_fact(arguments["fact_id"], user.org_id, arguments.get("valid_to"))
+                ok = await ms.invalidate_fact(
+                    arguments["fact_id"], user.org_id, user.id, arguments.get("valid_to")
+                )
                 return [TextContent(type="text", text="Invalidated." if ok else "Not found.")]
             except Exception as e:
                 return [TextContent(type="text", text=f"Error: {e}")]
@@ -397,7 +434,7 @@ def _build_mcp_server(user: User) -> Server:
 
         elif name == "fetch":
             try:
-                memory = await ms.get_memory(arguments["id"], org_id=user.org_id)
+                memory = await ms.get_memory(arguments["id"], org_id=user.org_id, user_id=user.id)
                 if not memory:
                     return [TextContent(type="text", text="Memory not found.")]
                 return [TextContent(
@@ -436,7 +473,7 @@ async def _run_streamable_session(session_id: str) -> None:
 @router.get("/mcp/sse")
 async def mcp_sse_get(
     request: Request,
-    current_user: User = Depends(get_mcp_user),
+    current_user: User = Depends(get_mcp_user_legacy_sse),
 ):
     """GET /mcp/sse — Legacy SSE stream (Cursor, curl)."""
     mcp_server = _build_mcp_server(current_user)
@@ -473,7 +510,7 @@ async def mcp_sse_post(
     transport = StreamableHTTPServerTransport(
         mcp_session_id=new_sid,
         is_json_response_enabled=False,
-        security_settings=_no_security,
+        security_settings=_security,
     )
     ready = asyncio.Event()
     _streamable_sessions[new_sid] = {

@@ -147,7 +147,7 @@ class MemoryService:
 
         # Résoudre l'ID partiel → UUID complet
         ms = await get_metadata_store()
-        memory = await ms.get_memory(memory_id, org_id)
+        memory = await ms.get_memory(memory_id, org_id, user_id)
         if not memory:
             return False
         full_id = memory.id

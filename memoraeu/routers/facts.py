@@ -81,7 +81,7 @@ async def get_fact(
     current_user=Depends(get_current_user),
 ):
     ms = await get_metadata_store()
-    fact = await ms.get_fact(fact_id, current_user.org_id)
+    fact = await ms.get_fact(fact_id, current_user.org_id, current_user.id)
     if not fact:
         raise HTTPException(status_code=404, detail="Fait introuvable")
     return fact
@@ -96,7 +96,7 @@ async def invalidate_fact(
     """Marque un fait comme expiré (valid_to = aujourd'hui ou date fournie)."""
     ms = await get_metadata_store()
     valid_to = body.valid_to if body else None
-    ok = await ms.invalidate_fact(fact_id, current_user.org_id, valid_to)
+    ok = await ms.invalidate_fact(fact_id, current_user.org_id, current_user.id, valid_to)
     if not ok:
         raise HTTPException(status_code=404, detail="Fait introuvable ou déjà invalidé")
     return {"invalidated": True, "fact_id": fact_id}

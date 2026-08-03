@@ -224,7 +224,7 @@ async def get_memory(
 ):
     """Récupère une mémoire par son ID."""
     ms = await get_metadata_store()
-    memory = await ms.get_memory(memory_id, current_user.org_id)
+    memory = await ms.get_memory(memory_id, current_user.org_id, current_user.id)
     if not memory:
         raise HTTPException(status_code=404, detail="Mémoire introuvable")
     return memory

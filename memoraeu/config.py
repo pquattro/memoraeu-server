@@ -51,6 +51,13 @@ class Settings(BaseSettings):
     # API
     api_host: str = "0.0.0.0"
     api_port: int = 8000
+
+    # MCP — protection DNS rebinding (listes séparées par des virgules).
+    # Les valeurs par défaut couvrent une installation locale. Si vous exposez
+    # le serveur sur un domaine, ajoutez-le à MCP_ALLOWED_HOSTS, sinon les
+    # requêtes seront rejetées en 421.
+    mcp_allowed_hosts: str = "localhost,127.0.0.1,localhost:8000,127.0.0.1:8000"
+    mcp_allowed_origins: str = "http://localhost,http://127.0.0.1,https://claude.ai"
     api_reload: bool = False  # F1 — jamais True en production
 
     class Config:

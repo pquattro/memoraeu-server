@@ -855,12 +855,17 @@ class MetadataStore:
             await db.commit()
         return memory
 
-    async def get_memory(self, memory_id: str, org_id: str) -> Memory | None:
+    async def get_memory(self, memory_id: str, org_id: str, user_id: str) -> Memory | None:
+        """
+        Lecture par ID. Filtre sur org_id ET user_id : une mémoire privée n'est
+        lisible que par son auteur, même au sein d'une même organisation.
+        """
         async with aiosqlite.connect(self.db_path) as db:
             db.row_factory = aiosqlite.Row
             async with db.execute(
-                "SELECT * FROM memories WHERE id LIKE ? || '%' AND org_id = ? LIMIT 1",
-                (memory_id, org_id)
+                "SELECT * FROM memories WHERE id LIKE ? || '%' AND org_id = ? "
+                "AND (scope = 'org' OR user_id = ?) LIMIT 1",
+                (memory_id, org_id, user_id)
             ) as cursor:
                 row = await cursor.fetchone()
                 if not row:
@@ -889,8 +894,8 @@ class MetadataStore:
     async def delete_memory(self, memory_id: str, org_id: str, user_id: str) -> bool:
         async with aiosqlite.connect(self.db_path) as db:
             async with db.execute(
-                "SELECT id, scope FROM memories WHERE id = ? AND org_id = ?",
-                (memory_id, org_id)
+                "SELECT id, scope FROM memories WHERE id = ? AND org_id = ? AND user_id = ?",
+                (memory_id, org_id, user_id)
             ) as cursor:
                 row = await cursor.fetchone()
             if not row:
@@ -911,10 +916,17 @@ class MetadataStore:
     ) -> list[Memory]:
         async with aiosqlite.connect(self.db_path) as db:
             db.row_factory = aiosqlite.Row
+            # scope="org"/"all" filtre sur le scope réellement enregistré :
+            # les mémoires privées d'un autre utilisateur ne sortent jamais.
             conditions = ["org_id = ?"]
             params: list = [org_id]
             if scope == "private":
                 conditions.append("user_id = ?")
+                params.append(user_id)
+            elif scope == "org":
+                conditions.append("scope = 'org'")
+            else:  # "all" -> les siennes OU celles partagees a l'org
+                conditions.append("(user_id = ? OR scope = 'org')")
                 params.append(user_id)
             if category:
                 conditions.append("category = ?")
@@ -1462,22 +1474,25 @@ class MetadataStore:
                 rows = await cursor.fetchall()
         return [self._row_to_fact(r) for r in rows]
 
-    async def get_fact(self, fact_id: str, org_id: str) -> "Fact | None":
+    async def get_fact(self, fact_id: str, org_id: str, user_id: str) -> "Fact | None":
         async with aiosqlite.connect(self.db_path) as db:
             db.row_factory = aiosqlite.Row
             async with db.execute(
-                "SELECT * FROM facts WHERE id=? AND org_id=?", (fact_id, org_id)
+                "SELECT * FROM facts WHERE id=? AND org_id=? AND user_id=?",
+                (fact_id, org_id, user_id)
             ) as cursor:
                 row = await cursor.fetchone()
         return self._row_to_fact(row) if row else None
 
-    async def invalidate_fact(self, fact_id: str, org_id: str, valid_to: str = None) -> bool:
+    async def invalidate_fact(self, fact_id: str, org_id: str, user_id: str,
+                              valid_to: str = None) -> bool:
         from datetime import date
         valid_to = valid_to or date.today().isoformat()
         async with aiosqlite.connect(self.db_path) as db:
             cursor = await db.execute(
-                "UPDATE facts SET valid_to=? WHERE id=? AND org_id=? AND valid_to IS NULL",
-                (valid_to, fact_id, org_id)
+                "UPDATE facts SET valid_to=? WHERE id=? AND org_id=? AND user_id=? "
+                "AND valid_to IS NULL",
+                (valid_to, fact_id, org_id, user_id)
             )
             await db.commit()
         return cursor.rowcount > 0

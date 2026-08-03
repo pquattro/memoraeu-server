@@ -107,11 +107,20 @@ class QdrantVectorStore:
             FieldCondition(key="org_id", match=MatchValue(value=org_id))
         ]
 
+        should: list = []
         if scope == "private":
             conditions.append(
                 FieldCondition(key="user_id", match=MatchValue(value=user_id))
             )
-        # scope="org" ou "all" → pas de filtre user_id
+        elif scope == "org":
+            # Filtrer sur le scope réellement enregistré : sans cela, "org"
+            # remontait aussi les mémoires privées des autres utilisateurs.
+            conditions.append(FieldCondition(key="scope", match=MatchValue(value="org")))
+        else:  # "all" -> les siennes OU celles partagees a l'org
+            should = [
+                FieldCondition(key="user_id", match=MatchValue(value=user_id)),
+                FieldCondition(key="scope", match=MatchValue(value="org")),
+            ]
 
         if category:
             conditions.append(
@@ -121,7 +130,8 @@ class QdrantVectorStore:
         response = await self.client.query_points(
             collection_name=self.collection,
             query=query_vector,
-            query_filter=Filter(must=conditions),
+            query_filter=(Filter(must=conditions, should=should) if should
+                          else Filter(must=conditions)),
             limit=limit,
             with_payload=True
         )

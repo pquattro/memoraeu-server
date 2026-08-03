@@ -72,6 +72,8 @@ Toute la configuration se fait via variables d'environnement (voir `.env.example
 | `MISTRAL_API_KEY` | — | Requis si `EMBED_PROVIDER=mistral` |
 | `QDRANT_URL` | `http://qdrant:6333` | URL de l'instance Qdrant |
 | `SQLITE_PATH` | `/data/memoraeu.db` | Chemin de la base SQLite |
+| `MCP_ALLOWED_HOSTS` | `localhost,127.0.0.1,localhost:8000,127.0.0.1:8000` | Hôtes acceptés sur `/mcp/` (protection DNS rebinding). **Ajoutez votre domaine** si vous exposez le serveur, sinon les requêtes sont rejetées en 421. |
+| `MCP_ALLOWED_ORIGINS` | `http://localhost,http://127.0.0.1,https://claude.ai` | Origines acceptées sur `/mcp/`. Un `Origin` absent est accepté (appels serveur-à-serveur). |
 
 ### Connecter votre client MCP
 
@@ -98,6 +100,10 @@ connector = client.beta.connectors.create(
 )
 ```
 ⚠️ Beta — discovery et SSE testés, exécution des tools en cours de déploiement par Mistral.
+⚠️ Depuis la 1.4.0, `POST /mcp/sse` n'accepte plus le token en query string. Si votre
+connecteur utilise le transport HTTP Streamable, passez la clé via l'en-tête
+`Authorization: Bearer`. Le `?token=` ci-dessus ne reste valable que pour le transport
+SSE legacy (`GET /mcp/sse`).
 
 ### Pourquoi MemoraEU ?
 
@@ -317,6 +323,8 @@ All configuration is via environment variables (see `.env.example`)
 | `MISTRAL_API_KEY` | — | Required if `EMBED_PROVIDER=mistral` |
 | `QDRANT_URL` | `http://qdrant:6333` | Qdrant instance URL |
 | `SQLITE_PATH` | `/data/memoraeu.db` | SQLite database path |
+| `MCP_ALLOWED_HOSTS` | `localhost,127.0.0.1,localhost:8000,127.0.0.1:8000` | Accepted hosts on `/mcp/` (DNS rebinding protection). **Add your own domain** if you expose the server, otherwise requests are rejected with 421. |
+| `MCP_ALLOWED_ORIGINS` | `http://localhost,http://127.0.0.1,https://claude.ai` | Accepted origins on `/mcp/`. A missing `Origin` is accepted (server-to-server calls). |
 
 ### Connect your MCP client
 
@@ -343,6 +351,10 @@ connector = client.beta.connectors.create(
 )
 ```
 ⚠️ Beta — discovery and SSE tested, tool execution being rolled out by Mistral.
+⚠️ Since 1.4.0, `POST /mcp/sse` no longer accepts the token as a query parameter. If your
+connector uses the HTTP Streamable transport, pass the key via the `Authorization: Bearer`
+header. The `?token=` above remains valid only for the legacy SSE transport
+(`GET /mcp/sse`).
 
 ### Why MemoraEU?
 

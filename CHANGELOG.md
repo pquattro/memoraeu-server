@@ -9,6 +9,36 @@
 Toutes les modifications notables sont documentées ici.
 Format : [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/) — [Semantic Versioning](https://semver.org/)
 
+### [1.4.0] — 2026-08-03
+
+#### Sécurité
+- **Isolation multi-tenant — lectures par ID** : `get_memory`, `delete_memory`, `get_fact` et
+  `invalidate_fact` filtraient sur `org_id` seul. Au sein d'une même organisation, un membre
+  pouvait lire, supprimer ou invalider les données privées d'un autre. Filtre `user_id` ajouté ;
+  les mémoires `scope='org'` restent partagées dans l'organisation.
+- **Isolation multi-tenant — paramètre `scope`** : `list_memories` et la recherche vectorielle
+  ne filtraient jamais sur le scope réellement enregistré. `?scope=org`, contrôlé par le client,
+  retirait simplement le filtre `user_id` et remontait les mémoires privées des autres membres.
+  Corrigé côté SQLite et côté Qdrant.
+- **Protection DNS rebinding réactivée** : validation des en-têtes `Host` et `Origin` sur les
+  endpoints `/mcp/`. Un TLS en amont ne protège pas de cette attaque, qui vient d'un navigateur
+  tiers en cross-origin. Configurable via `MCP_ALLOWED_HOSTS` et `MCP_ALLOWED_ORIGINS`.
+- **Token en query string retiré du transport HTTP Streamable** : un token dans l'URL est
+  journalisé par le reverse proxy et transmis via le `Referer`.
+
+#### Modifié
+- ⚠️ **Rupture — `POST /mcp/sse` n'accepte plus `?token=`.** Utilisez l'en-tête
+  `Authorization: Bearer`. Le `?token=` reste accepté sur `GET /mcp/sse` (SSE legacy), où
+  `EventSource` ne peut pas poser d'en-tête. Concerne les connecteurs enregistrés avec une URL
+  contenant `?token=` — notamment Mistral (cf. 1.2.0) s'ils utilisent le transport Streamable.
+- ⚠️ **Rupture — si vous exposez le serveur sur un domaine**, ajoutez-le à `MCP_ALLOWED_HOSTS`,
+  sinon les requêtes `/mcp/` sont rejetées en 421. Les valeurs par défaut couvrent `localhost`.
+
+#### Ajouté
+- `MCP_ALLOWED_HOSTS` et `MCP_ALLOWED_ORIGINS` (voir `.env.example` et le README).
+
+---
+
 ### [1.3.1] — 2026-05-16
 
 #### Corrigé
@@ -156,6 +186,37 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/) — [Semantic 
 
 All notable changes are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) — [Semantic Versioning](https://semver.org/)
+
+### [1.4.0] — 2026-08-03
+
+#### Security
+- **Multi-tenant isolation — reads by ID**: `get_memory`, `delete_memory`, `get_fact` and
+  `invalidate_fact` filtered on `org_id` only. Within a single organization, one member could
+  read, delete or invalidate another member's private data. `user_id` filter added; memories
+  with `scope='org'` remain shared across the organization.
+- **Multi-tenant isolation — `scope` parameter**: `list_memories` and vector search never
+  filtered on the scope actually stored. `?scope=org`, controlled by the client, simply dropped
+  the `user_id` filter and returned other members' private memories. Fixed in both SQLite and
+  Qdrant.
+- **DNS rebinding protection re-enabled**: `Host` and `Origin` headers are now validated on
+  `/mcp/` endpoints. Upstream TLS does not protect against this attack, which originates from a
+  third-party browser cross-origin. Configurable via `MCP_ALLOWED_HOSTS` and
+  `MCP_ALLOWED_ORIGINS`.
+- **Query-string token removed from the HTTP Streamable transport**: a token in the URL is
+  logged by the reverse proxy and leaked through the `Referer` header.
+
+#### Changed
+- ⚠️ **Breaking — `POST /mcp/sse` no longer accepts `?token=`.** Use the
+  `Authorization: Bearer` header. `?token=` is still accepted on `GET /mcp/sse` (legacy SSE),
+  where `EventSource` cannot set headers. Affects connectors registered with a URL containing
+  `?token=` — notably Mistral (see 1.2.0) if they use the Streamable transport.
+- ⚠️ **Breaking — if you expose the server on a domain**, add it to `MCP_ALLOWED_HOSTS`,
+  otherwise `/mcp/` requests are rejected with 421. Defaults cover `localhost`.
+
+#### Added
+- `MCP_ALLOWED_HOSTS` and `MCP_ALLOWED_ORIGINS` (see `.env.example` and the README).
+
+---
 
 ### [1.3.1] — 2026-05-16
 
