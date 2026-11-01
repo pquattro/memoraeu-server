@@ -44,10 +44,10 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="MemoraEU API",
     description=(
-        "Universal, sovereign, zero-knowledge memory layer for AI assistants.\n\n"
+        "Universal, sovereign memory layer for AI assistants — client-side encrypted (zero-knowledge) with the local MCP plugin and the SDKs.\n\n"
         "- **MCP transports**: Legacy SSE (`GET /mcp/sse`) + HTTP Streamable (`POST /mcp/sse`)\n"
         "- **Auth**: Bearer token (`meu-sk-...`) via `Authorization` header or `?token=` query param\n"
-        "- **Zero-knowledge**: content encrypted client-side with AES-256-GCM — server never sees plaintext\n\n"
+        "- **Zero-knowledge (local MCP plugin and SDKs)**: content is encrypted client-side with AES-256-GCM before reaching the server. The remote MCP endpoints (claude.ai, Cursor…) send text over TLS and are not client-side encrypted\n\n"
         "Source: [github.com/pquattro/memoraeu-server](https://github.com/pquattro/memoraeu-server) · "
         "Cloud: [memoraeu.com](https://memoraeu.com)"
     ),
@@ -90,9 +90,9 @@ async def mcp_discovery():
         "name": "memoraeu",
         "display_name": "MemoraEU",
         "description": (
-            "Zero-knowledge persistent memory layer for AI agents. "
+            "Persistent memory layer for AI agents. "
             "Stores, indexes and retrieves information in natural language. "
-            "All content is encrypted client-side — the server never sees plaintext. "
+            "Encrypted client-side (AES-256-GCM) with the local MCP plugin and the SDKs; the remote MCP endpoints send text over TLS and are not client-side encrypted. "
             "Hosted in Europe (GDPR compliant)."
         ),
         "version": "1.3.0",

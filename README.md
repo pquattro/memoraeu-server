@@ -17,7 +17,7 @@
 ## Français
 
 > **MemoraEU** donne à votre IA une mémoire persistante et chiffrée —
-> souveraine, zero-knowledge, hébergée en Europe.
+> souveraine, hébergée en Europe, zero-knowledge avec le plugin MCP local et les SDK.
 > Compatible Claude, Cursor, Windsurf, ChatGPT, GitHub Copilot, n8n via MCP.
 > Auto-hébergement gratuit (AGPL v3) ou [cloud géré EU](https://memoraeu.com)
 
@@ -111,7 +111,7 @@ SSE legacy (`GET /mcp/sse`).
 |---|---|---|
 | Open source | ✅ AGPL v3 | ✅ (core)
 | Hébergé en EU | ✅ OVH France | ❌ US |
-| Zero-knowledge | ✅ AES-256-GCM côté client | ❌ |
+| Zero-knowledge | ✅ AES-256-GCM côté client (MCP local, SDK) | ❌ |
 | Auto-hébergeable | ✅ Docker Compose | ✅ |
 | MCP natif | ✅ stdio + SSE + HTTP Streamable | ❌ |
 | Mistral connecteurs | ✅ compatible (beta)
@@ -214,7 +214,8 @@ Texte en clair
   → POST /memories { blob chiffré, vecteur }
   → [SERVEUR] similarité vectorielle → skip si > 94% doublon
   → [SERVEUR] SQLite ← métadonnées  |  Qdrant ← vecteur
-  → Le serveur ne voit jamais le texte en clair.
+  → Avec le MCP local et les SDK, le serveur ne voit jamais le texte en clair.
+  → Via les endpoints MCP distants (claude.ai, Cursor…), le texte arrive en TLS et n'est pas chiffré côté client.
 ```
 
 #### Rappeler une mémoire
@@ -267,7 +268,7 @@ Si vous faites tourner une version modifiée en tant que service réseau, vous d
 ## English
 
 > **MemoraEU** gives your AI a persistent, encrypted memory —
-> sovereign, zero-knowledge, hosted in Europe.
+> sovereign, hosted in Europe, zero-knowledge with the local MCP plugin and the SDKs.
 > Works with Claude, Cursor, Windsurf, ChatGPT, GitHub Copilot, n8n via MCP.
 > Self-host for free (AGPL v3) or use the [managed EU cloud](https://memoraeu.com)
 
@@ -362,7 +363,7 @@ header. The `?token=` above remains valid only for the legacy SSE transport
 |---|---|---|
 | Open source | ✅ AGPL v3 | ✅ (core)
 | Hosted in EU | ✅ OVH France | ❌ US |
-| Zero-knowledge | ✅ AES-256-GCM client-side | ❌ |
+| Zero-knowledge | ✅ AES-256-GCM client-side (local MCP, SDK) | ❌ |
 | Self-hostable | ✅ Docker Compose | ✅ |
 | MCP native | ✅ stdio + SSE + HTTP Streamable | ❌ |
 | Mistral connectors | ✅ compatible (beta)
@@ -465,7 +466,8 @@ Plaintext
   → POST /memories { encrypted blob, vector }
   → [SERVER] vector similarity check → skip if > 94% duplicate
   → [SERVER] SQLite ← metadata  |  Qdrant ← vector
-  → Server never sees plaintext. Ever.
+  → With the local MCP and the SDKs, the server never sees plaintext.
+  → Through the remote MCP endpoints (claude.ai, Cursor…), text arrives over TLS and is not client-side encrypted.
 ```
 
 #### Recalling a memory

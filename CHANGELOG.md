@@ -9,6 +9,11 @@
 Toutes les modifications notables sont documentées ici.
 Format : [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/) — [Semantic Versioning](https://semver.org/)
 
+### [Non publié]
+
+#### Documentation
+- **Zero-knowledge précisé** : le chiffrement côté client s'applique au plugin MCP local et aux SDK. Les endpoints MCP distants (claude.ai, Cursor…) reçoivent le texte en TLS et ne le chiffrent pas côté client. README, description OpenAPI et `/.well-known/mcp.json` corrigés.
+
 ### [1.4.0] — 2026-08-03
 
 #### Sécurité
@@ -186,6 +191,11 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/) — [Semantic 
 
 All notable changes are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) — [Semantic Versioning](https://semver.org/)
+
+### [Unreleased]
+
+#### Documentation
+- **Zero-knowledge clarified**: client-side encryption applies to the local MCP plugin and the SDKs. The remote MCP endpoints (claude.ai, Cursor…) receive text over TLS and do not encrypt it client-side. README, OpenAPI description and `/.well-known/mcp.json` corrected.
 
 ### [1.4.0] — 2026-08-03
 
